@@ -38,7 +38,7 @@ print(response.choices[0].message.content)
 
 ## Features
 
-- **Well-tested code**: Comprehensive test coverage with doctests throughout the codebase
+- **Well-tested code**: Comprehensive test coverage with doctests throughout the codebase ([90% coverage](https://gist.github.com/fresh-milkshake/48a14bcc9c753a99d0af6935eb96e056))
 - **Type safety**: Full type hints and enum-based roles
 - **Backward compatibility**: almost seamless integration with existing APIs
 - **Immutable design**: Safe message handling with copy methods
