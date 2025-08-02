@@ -3,8 +3,7 @@
 [![doctest coverage](https://img.shields.io/badge/doctest-90%25_coverage-green)](https://gist.github.com/fresh-milkshake/48a14bcc9c753a99d0af6935eb96e056)
 [![license](https://img.shields.io/badge/license-MIT-lightblue)](LICENSE.txt)
 ![python](https://img.shields.io/badge/python-3.10%2B-blue)
-![version](https://img.shields.io/pypi/v/chat-object)
-
+[![version](https://img.shields.io/pypi/v/chat-object)](https://pypi.org/project/chat-object/)
 
 A simple library for creating and managing chat objects and messages for LLM applications.
 
