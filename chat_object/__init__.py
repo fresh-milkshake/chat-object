@@ -1,24 +1,49 @@
-from chat_object.message import Message
-from chat_object.chat import Chat
-from chat_object.consts import (
-    Role,
+from .message import Message
+from .chat_obj import Chat
+from .prompt import Prompt
+from .role import Role
+
+from .consts import (
     MessageType,
     DictMessageType,
     LiteralRoleType,
     RoleType,
+    MessageContent,
+)
+from .qol import (
+    msgs,
+    chat,
+    msg,
+    prmt,
+    msg_user,
+    msg_assistant,
+    msg_system,
 )
 
+
 __all__ = [
+    # core classes
     "Message",
     "Chat",
+    "Prompt",
     "Role",
+    # consts
     "MessageType",
     "DictMessageType",
     "LiteralRoleType",
     "RoleType",
+    "MessageContent",
+    # qol features
+    "msgs",
+    "chat",
+    "msg",
+    "prmt",
+    "msg_user",
+    "msg_assistant",
+    "msg_system",
 ]
 
-__version__ = "1.0.0"
+__version__ = "2.0.0"
 __author__ = "fresh-milkshake"
 __license__ = "MIT"
 __url__ = "https://github.com/fresh-milkshake/chat-object"

@@ -16,7 +16,9 @@ def run_doctests() -> int:
     modules: List[str] = [
         "chat_object.consts",
         "chat_object.message",
-        "chat_object.chat",
+        "chat_object.chat_obj",
+        "chat_object.prompt",
+        "chat_object.qol",
     ]
 
     total_failures: int = 0
@@ -42,6 +44,7 @@ def run_doctests() -> int:
             module_tests = 0
             module_failures = 0
             status = ""
+            failed_tests_details = []
             try:
                 module = __import__(module_name, fromlist=["*"])
                 finder = doctest.DocTestFinder()
@@ -55,6 +58,13 @@ def run_doctests() -> int:
                         result = runner.run(test)
                         module_failures += result.failed
                         module_tests += result.attempted
+                        # If there are failures, rerun with verbose and capture output
+                        if result.failed > 0:
+                            import io
+                            output = io.StringIO()
+                            runner_verbose = doctest.DocTestRunner(verbose=True, optionflags=doctest.REPORT_ONLY_FIRST_FAILURE)
+                            runner_verbose.run(test, out=output.write)
+                            failed_tests_details.append((test.name, output.getvalue()))
                     if module_tests == 0:
                         status = "[yellow]No doctests[/yellow]"
                     elif module_failures == 0:
@@ -78,6 +88,16 @@ def run_doctests() -> int:
                 status,
             )
             progress.update(task, advance=1)
+
+            # Print failed test details if any
+            if failed_tests_details:
+                console.print(Panel.fit(f"[bold red]Failed doctests in {module_name}[/bold red]", style="red"))
+                for test_name, details in failed_tests_details:
+                    console.print(Panel.fit(
+                        f"[bold yellow]{test_name}[/bold yellow]\n\n{details}",
+                        title=f"[red]Failure in {test_name}[/red]",
+                        style="red"
+                    ))
 
     console.print(table)
 

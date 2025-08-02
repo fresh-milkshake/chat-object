@@ -1,8 +1,6 @@
-from .consts import DictMessageType
+from .consts import MessageType
 from .message import Message
-from typing import Union, Iterator, Callable, Any, Iterable
-
-MessageType = Union[Message, DictMessageType]
+from typing import Iterator, Callable, Any, Iterable
 
 
 class Chat:
@@ -119,7 +117,7 @@ class Chat:
         if isinstance(message, Message):
             return message
         elif isinstance(message, dict) and "role" in message and "content" in message:
-            return Message(**message)
+            return Message(message["role"], message["content"])  # type: ignore
         else:
             raise TypeError(f"Invalid message: {message}")
 
@@ -213,13 +211,13 @@ class Chat:
         """
         self._messages.clear()
         
-    def as_dict(self) -> list[dict]:
+    def as_dict(self) -> list[dict[str, str]]:
         """
         Returns a list of dictionaries representing the messages in the chat.
         Role values are already strings, so no conversion is needed.
         
         Returns:
-            list[dict]: List of dictionaries with 'role' and 'content' keys.
+            list[dict[str, str]]: List of dictionaries with 'role' and 'content' keys.
             
         Examples:
             >>> from chat_object import Chat, Message, Role
@@ -294,7 +292,7 @@ class Chat:
         validated_message = self._validate_message(message)
         self._messages.remove(validated_message)
     
-    def index(self, message: MessageType) -> int | None:
+    def index(self, message: MessageType) -> int:
         """
         List-like index method.
         
@@ -383,7 +381,7 @@ class Chat:
         """
         return f"Chat(messages={', '.join(repr(message) for message in self._messages) if self._messages else '[]'})"
 
-    def __eq__(self, other: "Chat") -> bool:
+    def __eq__(self, other: object) -> bool:
         """
         >>> from chat_object import Chat, Message, Role
         >>> msg1 = Message(Role.User, "Hello")
@@ -397,6 +395,8 @@ class Chat:
         >>> chat1 == chat3
         False
         """
+        if not isinstance(other, Chat):
+            return NotImplemented
         return self._messages == other._messages
 
     def __hash__(self) -> int:

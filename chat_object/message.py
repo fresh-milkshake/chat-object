@@ -1,4 +1,5 @@
-from .consts import RoleType
+from .prompt import Prompt
+from .consts import RoleType, MessageContent
 
 
 class Message:
@@ -40,7 +41,7 @@ class Message:
         [('role', 'user'), ('content', 'Hello, world!')]
     """
 
-    def __init__(self, role: RoleType, content: str):
+    def __init__(self, role: RoleType, content: MessageContent):
         """
         Initialize a message with role and content.
 
@@ -61,14 +62,17 @@ class Message:
             True
         """
         self.role = role
-        self.content = content
+        if isinstance(content, Prompt):
+            self.content = str(content)
+        else:
+            self.content = content
 
-    def as_dict(self) -> dict:
+    def as_dict(self) -> dict[str, str]:
         """
         Returns a dictionary representation of the message.
 
         Returns:
-            dict: Dictionary with 'role' and 'content' keys.
+            dict[str, str]: Dictionary with 'role' and 'content' keys.
 
         Examples:
             >>> from chat_object import Message, Role
@@ -78,10 +82,7 @@ class Message:
         """
         return {"role": self.role, "content": self.content}
 
-    def __dict__(self) -> dict:
-        return self.as_dict()
-
-    def __getitem__(self, key: str):
+    def __getitem__(self, key: str) -> str:
         """
         >>> from chat_object import Message, Role
         >>> msg = Message(Role.User, "Hello")
@@ -109,7 +110,7 @@ class Message:
         'assistant'
         """
         if key == "role":
-            self.role = value
+            self.role = value  # type: ignore
         elif key == "content":
             self.content = value
         else:
@@ -168,7 +169,7 @@ class Message:
         """
         return [("role", self.role), ("content", self.content)]
 
-    def update(self, other: dict) -> None:
+    def update(self, other: dict[str, str]) -> None:
         """
         Dict-like update method.
 
@@ -197,7 +198,7 @@ class Message:
             >>> msg_copy.content == msg.content
             True
         """
-        return Message(self.role, self.content)
+        return Message(self.role, self.content) # type: ignore
 
     def __str__(self) -> str:
         """
@@ -228,7 +229,7 @@ class Message:
         """
         return f"Message(role={repr(self.role)}, content={repr(self.content)})"
 
-    def __eq__(self, other: "Message") -> bool:
+    def __eq__(self, other: object) -> bool:
         """
         >>> from chat_object import Message, Role
         >>> msg1 = Message(Role.User, "Hello")
@@ -240,6 +241,8 @@ class Message:
         >>> msg1 == msg3
         False
         """
+        if not isinstance(other, Message):
+            return NotImplemented
         return self.role == other.role and self.content == other.content
 
     def __hash__(self) -> int:

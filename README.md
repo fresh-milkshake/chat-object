@@ -3,16 +3,38 @@
 [![doctest coverage](https://img.shields.io/badge/doctest-90%25_coverage-green)](https://gist.github.com/fresh-milkshake/48a14bcc9c753a99d0af6935eb96e056)
 [![license](https://img.shields.io/badge/license-MIT-lightblue)](LICENSE.txt)
 ![python](https://img.shields.io/badge/python-3.10%2B-blue)
+![version](https://img.shields.io/pypi/v/chat-object)
+
 
 A simple library for creating and managing chat objects and messages for LLM applications.
 
 ## Installation
 
+From PyPI:
+
 ```bash
 pip install chat-object
 ```
 
+From GitHub:
+
+```bash
+pip install git+https://github.com/fresh-milkshake/chat-object.git
+```
+
+Or from source:
+
+```bash
+git clone https://github.com/fresh-milkshake/chat-object.git
+cd chat-object
+pip install -e .
+```
+
 ## Quick Start
+
+### Basic Chat Usage
+
+Create a chat object and add messages to it:
 
 ```python
 import openai
@@ -33,15 +55,65 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
+### Using the Prompt Class
+
+The `Prompt` class automatically handles indentation and formatting:
+
+```python
+from chat_object import Prompt
+
+# Clean indentation automatically
+prompt = Prompt("""
+    You are a helpful assistant.
+    Please help me with the following task:
+    
+    def example_function():
+        return "hello world"
+    
+    Explain what this function does.
+""")
+
+# Multiple arguments are joined with newlines
+prompt = Prompt(
+    "You are a helpful assistant.",
+    "Please be concise in your responses.",
+    "Focus on practical solutions."
+)
+
+# String operations work naturally
+prompt += "\n\nAdditional context here"
+```
+
+### QOL Features for Quick Development
+
+Use convenience functions for faster development:
+
+```python
+from chat_object import chat, msg_user, msg_system, msg_assistant, prmt
+
+# Quick chat creation
+chat_obj = chat(
+    msg_system("You are a helpful assistant."),
+    msg_user("Hello!"),
+    msg_assistant("Hi there! How can I help you today?")
+)
+
+# Quick prompt creation
+prompt = prmt("You are a helpful assistant.")
+
+# Convert to dict for API calls
+messages = chat_obj.as_dict()
+```
+
 > [!TIP]
-> See [example_usage.py](example_usage.py) for more examples.
+> See [examples](examples) folder for more comprehensive examples.
 
 ## Features
 
 - **Well-tested code**: Comprehensive test coverage with doctests throughout the codebase ([90% coverage](https://gist.github.com/fresh-milkshake/48a14bcc9c753a99d0af6935eb96e056))
 - **Type safety**: Full type hints and enum-based roles
-- **Backward compatibility**: almost seamless integration with existing APIs
-- **Immutable design**: Safe message handling with copy methods
+- **Backward compatibility**: seamless integration with existing APIs like OpenAI, Anthropic, Together, Ollama, etc.
+- **QOL features**: Quick and easy message creation with `msg_user`, `msg_assistant`, `msg_system`, `prmt`, `msgs`, `chat` (Recommended, but not required). Pretty rich example usage of qol features is in [examples/openai_use_case.py](examples/openai_use_case.py).
 
 ## License
 
