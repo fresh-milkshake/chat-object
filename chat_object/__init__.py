@@ -43,8 +43,7 @@ __all__ = [
     "msg_system",
 ]
 
-__version__ = "2.0.0"
 __author__ = "fresh-milkshake"
 __license__ = "MIT"
 __url__ = "https://github.com/fresh-milkshake/chat-object"
-__description__ = "A simple library for creating and manipulating chat and message objects for LLM applications"
+__description__ = "A simple library for creating and managing chat objects and messages for LLM applications."

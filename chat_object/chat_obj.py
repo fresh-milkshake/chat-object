@@ -9,13 +9,13 @@ class Chat:
 
     Attributes:
         messages (tuple[Message, ...]): The list of messages in the chat.
-    
+
     Examples:
         >>> from chat_object import Chat, Message, Role
         >>> chat = Chat()
         >>> len(chat)
         0
-        
+
         >>> msg1 = Message(Role.User, "Hello")
         >>> msg2 = Message(Role.Assistant, "Hi there!")
         >>> chat = Chat(msg1, msg2)
@@ -25,30 +25,29 @@ class Chat:
         'Hello'
         >>> chat[1].content
         'Hi there!'
-        
+
         >>> # List-like operations for backward compatibility
         >>> chat.append({"role": "user", "content": "How are you?"})
         >>> len(chat)
         3
         >>> chat[2]["content"]
         'How are you?'
-        
+
         >>> # Dict-like access to messages
         >>> for msg in chat:
         ...     print(f"{msg['role']}: {msg['content']}")
         user: Hello
         assistant: Hi there!
         user: How are you?
-        
+
         >>> # List operations
         >>> chat.pop()
         Message(role='user', content='How are you?')
         >>> len(chat)
         2
     """
-    
+
     _messages: list[Message]
-    
 
     def __init__(self, *messages: MessageType):
         """
@@ -56,19 +55,19 @@ class Chat:
 
         Args:
             *messages (MessageType): The list of messages in the chat.
-            
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> chat = Chat()
             >>> len(chat)
             0
-            
+
             >>> msg1 = Message(Role.User, "Hello")
             >>> msg2 = Message(Role.Assistant, "Hi!")
             >>> chat = Chat(msg1, msg2)
             >>> len(chat)
             2
-            
+
             >>> # Test with dictionary messages
             >>> chat2 = Chat({"role": "user", "content": "Hello"}, {"role": "assistant", "content": "Hi!"})
             >>> len(chat2)
@@ -78,15 +77,15 @@ class Chat:
         """
         self._messages = []
         self.extend(messages)
-        
+
     @property
     def messages(self) -> tuple[Message, ...]:
         """
         Returns the list of messages in the chat.
-        
+
         Returns:
             list[Message]: List of messages.
-            
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> msg = Message(Role.User, "Hello")
@@ -97,7 +96,7 @@ class Chat:
             1
         """
         return tuple(self._messages)
-    
+
     def _validate_message(self, message: MessageType) -> Message:
         """
         >>> from chat_object import Chat, Message, Role
@@ -107,7 +106,7 @@ class Chat:
         True
         >>> msg.role
         'user'
-        
+
         >>> msg2 = chat._validate_message({"role": "assistant", "content": "Hi!"})
         >>> isinstance(msg2, Message)
         True
@@ -124,10 +123,10 @@ class Chat:
     def add(self, message: MessageType) -> None:
         """
         Adds a single message to the chat.
-        
+
         Args:
             message (MessageType): Message to add.
-            
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> chat = Chat()
@@ -136,7 +135,7 @@ class Chat:
             1
             >>> chat[0].content
             'Hello'
-            
+
             >>> chat.add({"role": "assistant", "content": "Hi!"})
             >>> len(chat)
             2
@@ -148,10 +147,10 @@ class Chat:
     def get_messages(self) -> list[Message]:
         """
         Returns the list of messages in the chat.
-        
+
         Returns:
             list[Message]: List of messages.
-            
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> msg1 = Message(Role.User, "Hello")
@@ -166,14 +165,14 @@ class Chat:
             'assistant'
         """
         return self._messages
-    
+
     def extend(self, messages: Iterable[MessageType]) -> None:
         """
         Extends the chat with multiple messages.
-        
+
         Args:
             messages (list[MessageType]): List of messages to add.
-            
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> chat = Chat()
@@ -182,7 +181,7 @@ class Chat:
             >>> chat.extend([msg1, msg2])
             >>> len(chat)
             2
-            
+
             >>> chat.extend([{"role": "user", "content": "How are you?"}])
             >>> len(chat)
             3
@@ -191,11 +190,11 @@ class Chat:
         """
         for message in messages:
             self._messages.append(self._validate_message(message))
-            
+
     def clear(self) -> None:
         """
         Removes all messages from the chat.
-        
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> msg1 = Message(Role.User, "Hello")
@@ -210,15 +209,15 @@ class Chat:
             ()
         """
         self._messages.clear()
-        
+
     def as_dict(self) -> list[dict[str, str]]:
         """
         Returns a list of dictionaries representing the messages in the chat.
         Role values are already strings, so no conversion is needed.
-        
+
         Returns:
             list[dict[str, str]]: List of dictionaries with 'role' and 'content' keys.
-            
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> msg1 = Message(Role.User, "Hello")
@@ -227,12 +226,15 @@ class Chat:
             >>> chat.as_dict()
             [{'role': 'user', 'content': 'Hello'}, {'role': 'assistant', 'content': 'Hi!'}]
         """
-        return [{"role": message.role, "content": message.content} for message in self._messages]
-    
+        return [
+            {"role": message.role, "content": message.content}
+            for message in self._messages
+        ]
+
     def append(self, message: MessageType) -> None:
         """
         List-like append method.
-        
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> chat = Chat()
@@ -244,11 +246,11 @@ class Chat:
             2
         """
         self.add(message)
-    
+
     def insert(self, index: int, message: MessageType) -> None:
         """
         List-like insert method.
-        
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> chat = Chat(Message(Role.User, "Hello"))
@@ -259,11 +261,11 @@ class Chat:
             'system'
         """
         self._messages.insert(index, self._validate_message(message))
-    
+
     def pop(self, index: int = -1) -> Message:
         """
         List-like pop method.
-        
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> chat = Chat(Message(Role.User, "Hello"), Message(Role.Assistant, "Hi!"))
@@ -274,11 +276,11 @@ class Chat:
             1
         """
         return self._messages.pop(index)
-    
+
     def remove(self, message: MessageType) -> None:
         """
         List-like remove method.
-        
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> msg = Message(Role.User, "Hello")
@@ -291,11 +293,11 @@ class Chat:
         """
         validated_message = self._validate_message(message)
         self._messages.remove(validated_message)
-    
+
     def index(self, message: MessageType) -> int:
         """
         List-like index method.
-        
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> msg = Message(Role.User, "Hello")
@@ -305,11 +307,11 @@ class Chat:
         """
         validated_message = self._validate_message(message)
         return self._messages.index(validated_message)
-    
+
     def count(self, message: MessageType) -> int:
         """
         List-like count method.
-        
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> msg = Message(Role.User, "Hello")
@@ -319,11 +321,11 @@ class Chat:
         """
         validated_message = self._validate_message(message)
         return self._messages.count(validated_message)
-    
+
     def reverse(self) -> None:
         """
         List-like reverse method.
-        
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> chat = Chat(Message(Role.User, "Hello"), Message(Role.Assistant, "Hi!"))
@@ -332,11 +334,13 @@ class Chat:
             'assistant'
         """
         self._messages.reverse()
-    
-    def sort(self, key: Callable[[Message], Any] = lambda x: x, reverse: bool = False) -> None:
+
+    def sort(
+        self, key: Callable[[Message], Any] = lambda x: x, reverse: bool = False
+    ) -> None:
         """
         List-like sort method.
-        
+
         Examples:
             >>> from chat_object import Chat, Message, Role
             >>> chat = Chat(Message(Role.Assistant, "Hi!"), Message(Role.User, "Hello"))
@@ -345,7 +349,7 @@ class Chat:
             'assistant'
         """
         self._messages.sort(key=key, reverse=reverse)
-    
+
     def __contains__(self, string: str) -> bool:
         """
         >>> from chat_object import Chat, Message, Role
@@ -374,7 +378,7 @@ class Chat:
         >>> chat = Chat(msg)
         >>> repr(chat)
         "Chat(messages=Message(role='user', content='Hello'))"
-        
+
         >>> chat2 = Chat()
         >>> repr(chat2)
         'Chat(messages=[])'
@@ -389,7 +393,7 @@ class Chat:
         >>> chat1 = Chat(msg1, msg2)
         >>> chat2 = Chat(msg1, msg2)
         >>> chat3 = Chat(msg2, msg1)
-        
+
         >>> chat1 == chat2
         True
         >>> chat1 == chat3
@@ -417,7 +421,7 @@ class Chat:
         >>> chat = Chat()
         >>> len(chat)
         0
-        
+
         >>> msg1 = Message(Role.User, "Hello")
         >>> msg2 = Message(Role.Assistant, "Hi!")
         >>> chat = Chat(msg1, msg2)
@@ -440,7 +444,7 @@ class Chat:
         'user'
         """
         return self._messages[index]
-    
+
     def __setitem__(self, index: int, message: MessageType) -> None:
         """
         >>> from chat_object import Chat, Message, Role
@@ -450,7 +454,7 @@ class Chat:
         'assistant'
         """
         self._messages[index] = self._validate_message(message)
-    
+
     def __delitem__(self, index: int) -> None:
         """
         >>> from chat_object import Chat, Message, Role
@@ -462,7 +466,7 @@ class Chat:
         'assistant'
         """
         del self._messages[index]
-    
+
     def __iter__(self) -> Iterator[Message]:
         """
         >>> from chat_object import Chat, Message, Role

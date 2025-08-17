@@ -94,7 +94,7 @@ def demo_practical_scenarios():
     def mock_api_call(messages: List[DictMessageType]) -> str:
         return " | ".join([f"{msg['role']}: {msg['content']}" for msg in messages])
 
-    api_result = mock_api_call(bot_chat.as_dict()) # type: ignore
+    api_result = mock_api_call(bot_chat.as_dict())  # type: ignore
     assert "user:" in api_result
     assert "assistant:" in api_result
 

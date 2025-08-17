@@ -21,7 +21,7 @@ Examples:
   doctest_coverage_analysis.py file1.py file2.py
   doctest_coverage_analysis.py . --recursive --format json
   doctest_coverage_analysis.py src/ --format summary
-  doctest_coverage_analysis.py . --format csv > results.csv   
+  doctest_coverage_analysis.py . --format csv > results.csv
 """
 
 import re

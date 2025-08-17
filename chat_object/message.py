@@ -198,7 +198,7 @@ class Message:
             >>> msg_copy.content == msg.content
             True
         """
-        return Message(self.role, self.content) # type: ignore
+        return Message(self.role, self.content)  # type: ignore
 
     def __str__(self) -> str:
         """

@@ -1,6 +1,6 @@
 [project]
 name = "chat-object"
-version = "2.0.0"
+version = "2.0.1"
 description = "A simple library for creating and manipulating chat and message objects for LLM applications"
 authors = [
     { name = "fresh-milkshake" }

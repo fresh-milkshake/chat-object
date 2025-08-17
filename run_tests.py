@@ -6,7 +6,13 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 from rich.text import Text
-from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TimeElapsedColumn
+from rich.progress import (
+    Progress,
+    SpinnerColumn,
+    BarColumn,
+    TextColumn,
+    TimeElapsedColumn,
+)
 
 
 console = Console()
@@ -24,7 +30,11 @@ def run_doctests() -> int:
     total_failures: int = 0
     total_tests: int = 0
 
-    console.print(Panel.fit("[bold cyan]Running doctests for package...[/bold cyan]", style="bold blue"))
+    console.print(
+        Panel.fit(
+            "[bold cyan]Running doctests for package...[/bold cyan]", style="bold blue"
+        )
+    )
     table = Table(show_header=True, header_style="bold magenta")
     table.add_column("Module", style="bold")
     table.add_column("Tests", justify="right")
@@ -61,8 +71,12 @@ def run_doctests() -> int:
                         # If there are failures, rerun with verbose and capture output
                         if result.failed > 0:
                             import io
+
                             output = io.StringIO()
-                            runner_verbose = doctest.DocTestRunner(verbose=True, optionflags=doctest.REPORT_ONLY_FIRST_FAILURE)
+                            runner_verbose = doctest.DocTestRunner(
+                                verbose=True,
+                                optionflags=doctest.REPORT_ONLY_FIRST_FAILURE,
+                            )
                             runner_verbose.run(test, out=output.write)
                             failed_tests_details.append((test.name, output.getvalue()))
                     if module_tests == 0:
@@ -91,20 +105,30 @@ def run_doctests() -> int:
 
             # Print failed test details if any
             if failed_tests_details:
-                console.print(Panel.fit(f"[bold red]Failed doctests in {module_name}[/bold red]", style="red"))
+                console.print(
+                    Panel.fit(
+                        f"[bold red]Failed doctests in {module_name}[/bold red]",
+                        style="red",
+                    )
+                )
                 for test_name, details in failed_tests_details:
-                    console.print(Panel.fit(
-                        f"[bold yellow]{test_name}[/bold yellow]\n\n{details}",
-                        title=f"[red]Failure in {test_name}[/red]",
-                        style="red"
-                    ))
+                    console.print(
+                        Panel.fit(
+                            f"[bold yellow]{test_name}[/bold yellow]\n\n{details}",
+                            title=f"[red]Failure in {test_name}[/red]",
+                            style="red",
+                        )
+                    )
 
     console.print(table)
 
     passed_tests = total_tests - total_failures
     summary_text = Text()
     summary_text.append("Summary: ", style="bold")
-    summary_text.append(f"{passed_tests}/{total_tests} tests passed", style="bold green" if total_failures == 0 else "bold yellow")
+    summary_text.append(
+        f"{passed_tests}/{total_tests} tests passed",
+        style="bold green" if total_failures == 0 else "bold yellow",
+    )
     console.print(summary_text)
 
     if total_failures > 0:
