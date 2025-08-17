@@ -1,18 +1,10 @@
 # chat-object
 
-<a href="https://gist.github.com/fresh-milkshake/48a14bcc9c753a99d0af6935eb96e056">
-  <img src="https://img.shields.io/badge/doctest-90%25_coverage-00796b" alt="doctest coverage">
-</a>
-<a href="LICENSE.txt">
-  <img src="https://img.shields.io/badge/license-MIT-blue" alt="license">
-</a>
-<img src="https://img.shields.io/badge/python-3.10%2B-306998" alt="python">
-<a href="https://pypi.org/project/chat-object/">
-  <img src="https://img.shields.io/pypi/v/chat-object?color=white&label=version" alt="version">
-</a>
-<a href="https://pepy.tech/projects/chat-object">
-  <img src="https://static.pepy.tech/badge/chat-object?color=6c757d" alt="PyPI Downloads">
-</a>
+[![doctest coverage](https://img.shields.io/badge/doctest-90%25_coverage-00796b)](https://gist.github.com/fresh-milkshake/48a14bcc9c753a99d0af6935eb96e056)
+[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE.txt)
+![python](https://img.shields.io/badge/python-3.10%2B-306998)
+[![version](https://img.shields.io/pypi/v/chat-object?color=white&label=version)](https://pypi.org/project/chat-object/)
+[![PyPI Downloads](https://static.pepy.tech/badge/chat-object?color=6c757d)](https://pepy.tech/projects/chat-object)
 
 A simple library for creating and managing chat objects and messages for LLM applications.
 
