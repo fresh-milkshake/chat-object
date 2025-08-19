@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE.txt)
 ![python](https://img.shields.io/badge/python-3.10%2B-306998)
 [![version](https://img.shields.io/pypi/v/chat-object?color=white&label=version)](https://pypi.org/project/chat-object/)
-[![PyPI Downloads](https://static.pepy.tech/badge/chat-object?color=6c757d)](https://pepy.tech/projects/chat-object)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/chat-object?period=total&units=abbreviation&left_color=grey&right_color=blue&left_text=PyPI%20Downloads)](https://pepy.tech/project/chat-object)
 
 A simple library for creating and managing chat objects and messages for LLM applications.
 
