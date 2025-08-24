@@ -1,4 +1,14 @@
-# chat-object
+<p align="center">
+  <a href="https://github.com/fresh-milkshake/chat-object">
+    <img src="assets/logo.svg" alt="chat-object logo" width="180" />
+  </a>
+  <br />
+  <b><span style="font-size:2.2em;">chat-object</span></b>
+  <br />
+  <em>Elegant, Pythonic chat/message objects for LLMs</em>
+</p>
+
+#
 
 [![doctest coverage](https://img.shields.io/badge/doctest-90%25_coverage-00796b)](https://gist.github.com/fresh-milkshake/48a14bcc9c753a99d0af6935eb96e056)
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE.txt)
@@ -6,7 +16,19 @@
 [![version](https://img.shields.io/pypi/v/chat-object?color=white&label=version)](https://pypi.org/project/chat-object/)
 [![PyPI Downloads](https://static.pepy.tech/personalized-badge/chat-object?period=total&units=abbreviation&left_color=grey&right_color=blue&left_text=PyPI%20Downloads)](https://pepy.tech/project/chat-object)
 
-A simple library for creating and managing chat objects and messages for LLM applications.
+
+`chat-object` is a lightweight, intuitive Python library for building, managing, and formatting chat messages for LLM (Large Language Model) applications. Effortlessly create chat histories, prompts, and message objects that work seamlessly with OpenAI, Anthropic, and other LLM APIs.
+
+
+## Features
+
+- **Simple, Pythonic API** for chat and prompt construction
+- **Automatic formatting** for OpenAI/Anthropic message schemas
+- **Convenience utilities** for rapid prototyping and development
+- **Type-safe, explicit roles** (`System`, `User`, `Assistant`)
+- **Flexible prompt composition** with natural string operations
+
+
 
 ## Installation
 

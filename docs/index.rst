@@ -1,5 +1,19 @@
-Welcome to chat-object documentation!
-=====================================
+.. raw:: html
+
+   <p align="center">
+   <a href="https://github.com/fresh-milkshake/chat-object">
+      <img src="_static/logo.svg" alt="chat-object logo" width="180" />
+   </a>
+   <br />
+   <br />
+   <b><span style="font-size:2.2em;">chat-object</span></b>
+   <br />
+   <em>Elegant, Pythonic chat/message objects for LLMs</em>
+   </p>
+
+
+Overview
+===========
 
 .. image:: https://img.shields.io/badge/doctest-90%25_coverage-00796b
    :target: https://gist.github.com/fresh-milkshake/48a14bcc9c753a99d0af6935eb96e056
@@ -10,27 +24,27 @@ Welcome to chat-object documentation!
    :alt: license
 
 .. image:: https://img.shields.io/badge/python-3.10%2B-306998
-   :alt: python
+   :alt: python version
 
 .. image:: https://img.shields.io/pypi/v/chat-object?color=white&label=version
    :target: https://pypi.org/project/chat-object/
-   :alt: version
+   :alt: PyPI version
 
 .. image:: https://static.pepy.tech/personalized-badge/chat-object?period=total&units=abbreviation&left_color=grey&right_color=blue&left_text=PyPI%20Downloads
    :target: https://pepy.tech/project/chat-object
    :alt: PyPI Downloads
 
-A simple library for creating and managing chat objects and messages for LLM applications.
+
+``chat-object`` is a lightweight, intuitive Python library for building, managing, and formatting chat messages for LLM (Large Language Model) applications. Effortlessly create chat histories, prompts, and message objects that work seamlessly with OpenAI, Anthropic, and other LLM APIs.
 
 Features
 --------
 
-* **Simple Chat Management**: Create and manage chat conversations with ease
-* **Message Objects**: Structured message handling with roles (System, User, Assistant)
-* **Prompt Formatting**: Automatic indentation and formatting with the Prompt class
-* **QOL Features**: Convenience functions for quick development
-* **Type Safety**: Full type hints support
-* **OpenAI Integration**: Seamless integration with OpenAI API
+- **Simple, Pythonic API** for chat and prompt construction
+- **Automatic formatting** for OpenAI/Anthropic message schemas
+- **Convenience utilities** for rapid prototyping and development
+- **Type-safe, explicit roles** (``System``, ``User``, ``Assistant``)
+- **Flexible prompt composition** with natural string operations
 
 Quick Start
 -----------
